@@ -1,4 +1,4 @@
 streamlit
 selenium
-selenium.webdriver.edge.service
+webdriver_manager
 matplotlib
