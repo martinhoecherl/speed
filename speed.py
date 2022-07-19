@@ -5,6 +5,8 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from selenium.webdriver.edge.service import Service as EdgeService
 import matplotlib.pyplot as plt
 import streamlit as st
+from selenium.webdriver.firefox.options import Options
+import os
 
 st.title('WCISS Speedtest')
 select_page = st.selectbox('Select Website', options=['Start page', 'Search page', 'Upload page'])
@@ -21,12 +23,17 @@ test_number = st.number_input('Number of performance tests', min_value=1, max_va
 press = st.button('Run')
 
 if press:
-    service = EdgeService(executable_path=EdgeChromiumDriverManager().install())
+    #service = EdgeService(executable_path=EdgeChromiumDriverManager().install())
+    os.system('sbase install geckodriver')
+    os.system('ln -s /home/appuser/venv/lib/python3.7/site-packages/seleniumbase/drivers/geckodriver /home/appuser/venv/bin/geckodriver')
 
     performance_data = np.ones((test_number+1, 3)).astype(object)
 
     for i in range(test_number+1):
-        driver = webdriver.Edge(service=service)
+        #driver = webdriver.Edge(service=service)
+        opts = Options()
+        opts.add_argument("--headless")
+        driver = webdriver.Firefox(options=opts)
         driver.get(page)
 
         navigationStart = driver.execute_script("return window.performance.timing.navigationStart")
