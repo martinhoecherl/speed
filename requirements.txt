@@ -2,4 +2,3 @@ streamlit
 selenium
 webdriver_manager
 matplotlib
-firefox-esr
